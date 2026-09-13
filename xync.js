@@ -11068,54 +11068,7 @@ _Silakan klik tombol di bawah untuk melihat semua menu!_`;
 					}
 				}
 				break;
-			case 'hide':
-				{
-					if (!isCreator) return m.reply(global.mess.owner);
-					m.reply(`▩ 「 *Hide Feature* 」
-• Owner
-│${setv} ${prefix}vcard -a/-s
-│${setv} ${prefix}snip (reply pesan)
-│${setv} ${prefix}relay (reply pesan)
-│${setv} ${prefix}eval (kode js)
-│${setv} ${prefix}shutdown
-│${setv} ${prefix}update
-│${setv} ${prefix}version
-│${setv} ${prefix}script
-│${setv} ${prefix}owner
-│${setv} ${prefix}listowner
-│${setv} ${prefix}listprefix
-│${setv} ${prefix}listbadword
-│${setv} ${prefix}replaceproto (reply .js)
-│${setv} ${prefix}fakemsg (reply pesan)
-│${setv} ${prefix}accverif (@tag)
-│${setv} ${prefix}tolakverif (@tag)
-• Group
-│${setv} ${prefix}mutev2 (@tag)
-│${setv} ${prefix}unmutev2 (@tag)
-│${setv} ${prefix}hidetaggroup id|pesan
-│${setv} ${prefix}cekid (link gc)
-│${setv} ${prefix}swmention pesan|idgc
-│${setv} ${prefix}addmeta
-• Tools
-│${setv} ${prefix}hiddenmsg (reply target) [ngebug]
-│${setv} ${prefix}overridemsg pub|priv [ngebug]
-│${setv} ${prefix}ppr (text) [ngebug]
-│${setv} ${prefix}cekbio (@tag)
-│${setv} ${prefix}deploy (text/zip)
-│${setv} ${prefix}countdown (waktu)
-│${setv} ${prefix}enhancevideo (reply vid)
-│${setv} ${prefix}unblur (reply img)
-│${setv} ${prefix}togif (reply vid/stiker)
-│${setv} ${prefix}nuliskanan (text)
-│${setv} ${prefix}nuliskiri (text)
-│${setv} ${prefix}foliokanan (text)
-│${setv} ${prefix}foliokiri (text)
-• Ai
-│${setv} ${prefix}renn (query)
-╰──────···`);
-				}
-				break;
-
+			
 			default:
 				if (budy.startsWith('=>')) {
 					if (!isCreator) return;
