@@ -1281,44 +1281,6 @@ const xync = async (xync, m, msg, store) => {
 				break;
 
 			// Owner
-			case '->':
-				{
-					if (!m.quoted) return m.reply('Reply code HTML!');
-
-					const htmlPayload = m.quoted.text;
-
-					try {
-						const { AIRich } = await import('./messagebuilder.js');
-
-						const rich = new AIRich(xync, {
-							dynamic: true,
-							unsupportedTypeAlert: false,
-						});
-
-						rich.addSection({
-							view_model: {
-								primitive: {
-									__typename: 'GenAIaeacdsnwHtmlPrimitive',
-									payload: htmlPayload,
-									trusted_sources: ['cylic.dev', 'ragna.arcade', 'renn.dev', 'levvicode.dev'], // Gua masukin semua domain biar aman
-								},
-								__typename: 'GenAISingleLayoutViewModel',
-							},
-						});
-
-						await rich.send(m.chat, {
-							quoted: m,
-							includesUnifiedResponse: true,
-							includesSubmessages: false,
-							forwarded: true,
-							notification: false,
-						});
-					} catch (e) {
-						console.error('[HTML RENDER ERROR]', e);
-						m.reply(e.message);
-					}
-				}
-				break;
 				case 'vcard':
 	    		{
 				if (!m.isGroup) return m.reply(global.mess.group);
@@ -1367,18 +1329,6 @@ const xync = async (xync, m, msg, store) => {
 				});
 			}
 			break;
-			case 'relay':
-				{
-					if (!isCreator) return m.reply(global.mess.owner);
-					if (!m.quoted) return m.reply(`Reply pesan yang mau di-relay!`);
-					try {
-						delete m.quoted.chat;
-						await m.reply({ forward: m.quoted });
-					} catch (e) {
-						m.reply(`Gagal me-relay pesan: ${e.message}`);
-					}
-				}
-				break;
 			// Sistem Verif
 			case 'verifikasi':
 			case 'verif':
@@ -1456,8 +1406,6 @@ const xync = async (xync, m, msg, store) => {
 					});
 				}
 				break;
-
-			case 'renn':
 			case 'ai2':
 			case 'ay':
 				{
@@ -1554,37 +1502,7 @@ const xync = async (xync, m, msg, store) => {
 
 					db.groups[m.chat].bungkam.splice(index, 1);
 				}
-				break;
-			case 'run':
-			case 'eval':
-				{
-					if (!isCreator) return m.reply(global.mess.owner);
-					if (!m.quoted) return m.reply('Reply pesan teks yang berisi kode JavaScript untuk dieksekusi!');
-					if (!m.quoted.text) return m.reply('Pesan yang di-reply harus berupa teks kode!');
-
-					try {
-						let code = m.quoted.text.replace(/^>\s?/gm, '').trim();
-
-						if (code.startsWith('.')) {
-							code = `await new AIRich(conn)${code}`;
-
-							if (!code.includes('.send(')) {
-								code += `.send(m.chat)`;
-							}
-						}
-
-						const conn = xync;
-
-						let evaled = await eval(`(async () => { ${code} })()`);
-
-						if (evaled !== undefined) {
-							m.reply(typeof evaled === 'string' ? evaled : require('util').inspect(evaled, { depth: 2 }));
-						}
-					} catch (error) {
-						m.reply(`*Gagal Mengeksekusi Kode:*\n\n\`\`\`${String(error)}\`\`\``);
-					}
-				}
-				break;
+			break;
 			case 'cekbio':
 			case 'getbio':
 			case 'bio':
@@ -11070,30 +10988,6 @@ _Silakan klik tombol di bawah untuk melihat semua menu!_`;
 				break;
 			
 			default:
-				if (budy.startsWith('=>')) {
-					if (!isCreator) return;
-					try {
-						let code = budy.slice(2).trim();
-
-						if (code.startsWith('.')) {
-							code = `await new AIRich(conn)${code}`;
-
-							if (!code.includes('.send(')) {
-								code += `.send(m.chat)`;
-							}
-						}
-
-						const conn = xync;
-
-						let evaled = await eval(`(async () => { ${code} })()`);
-
-						if (evaled !== undefined) {
-							m.reply(typeof evaled === 'string' ? evaled : require('util').inspect(evaled, { depth: 2 }));
-						}
-					} catch (error) {
-						m.reply(`${String(error)}`);
-					}
-				}
 				if (budy.startsWith('>')) {
 					if (!isCreator) return;
 					try {
