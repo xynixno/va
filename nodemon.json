@@ -1,0 +1,3 @@
+{
+  "ignore": ["xyncdev", "node_modules", "database", "logs"]
+}
